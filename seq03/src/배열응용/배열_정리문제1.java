@@ -1,5 +1,7 @@
 package 배열응용;
 
+import java.util.Arrays;
+
 public class 배열_정리문제1 {
 
 	public static void main(String[] args) {
