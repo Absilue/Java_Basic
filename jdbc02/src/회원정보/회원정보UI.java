@@ -13,8 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import db연결.MemberDAO;
-
 public class 회원정보UI {
 	public static void main(String[] args) {
 		// 필요한 부품들을 RAM에 가져와야함

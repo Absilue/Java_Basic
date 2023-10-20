@@ -1,8 +1,8 @@
-package 게시판정보;
+package 리팩토링_bbs;
 
 import javax.swing.JOptionPane;
 
-import 회원정보.MemberDAO;
+import 리팩토링_member.MemberDAO;
 
 public class 게시판정보UI테스트 {
 	public static void main(String[] args) {

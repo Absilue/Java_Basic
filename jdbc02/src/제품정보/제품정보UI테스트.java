@@ -2,7 +2,7 @@ package 제품정보;
 
 import javax.swing.JOptionPane;
 
-import db연결.MemberDAO;
+import 회원정보.MemberDAO;
 
 public class 제품정보UI테스트 {
 	public static void main(String[] args) {

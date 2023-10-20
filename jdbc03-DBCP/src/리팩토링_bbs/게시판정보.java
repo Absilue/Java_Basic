@@ -1,4 +1,4 @@
-package 게시판정보;
+package 리팩토링_bbs;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -13,8 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import 게시판정보.BbsDAO;
-import 회원정보.MemberDAO;
+import 리팩토링_bbs.BbsDAO;
+import 리팩토링_member.MemberDAO;
 
 public class 게시판정보 {
 	public static void main(String[] args) {

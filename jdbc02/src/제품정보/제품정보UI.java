@@ -13,8 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import db연결.MemberDAO;
 import 게시판정보.BbsDAO;
+import 회원정보.MemberDAO;
 
 public class 제품정보UI {
 	public static void main(String[] args) {
