@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class MemberDAO {
 	// member table에 CRUD 작업을 하고 싶으면 MemberDAO를 사용하면 됨
@@ -36,7 +37,7 @@ public class MemberDAO {
 
 	public MemberVO one(String id) {
 		MemberVO bag = new MemberVO();
-
+		
 		try {
 			// 3. 2번에서 연결된 것을 가지고 sql문 생성
 			String sql = "select * from member where id = ?";
@@ -111,8 +112,8 @@ public class MemberDAO {
 		}
 	}
 
-	public void delete(String id) {
-
+	public int delete(String id) {
+		int result = 0;
 		try {
 			// 3. 2번에서 연결된 것을 가지고 sql문 생성
 			String sql = "delete from member where id = ?";
@@ -130,10 +131,11 @@ public class MemberDAO {
 			e.printStackTrace();
 			System.out.println("에러 발생");
 		}
+		return result;
 	}
 
-	public void update(String tel, String id) {
-
+	public int update(String tel, String id) {
+		int result = 0;
 		try {
 			// 3. 2번에서 연결된 것을 가지고 sql문 생성
 			String sql = "update member set tel = ? where id = ? ";
@@ -144,7 +146,7 @@ public class MemberDAO {
 			System.out.println("3. sql문 생성 성공");
 
 			// 4. 3번에서 생성된 sql문을 Mysql로 전송
-			ps.execute();
+			result = ps.executeUpdate();
 			System.out.println("4. sql문 mySQL로 전송 성공");
 			dbcp.freeConnection(con,ps);
 		} catch (Exception e) {
@@ -152,6 +154,7 @@ public class MemberDAO {
 			e.printStackTrace(); // 에러정보를 추적해서 프린트
 			System.out.println("에러 발생");
 		}
+		return result;
 	}
 
 	public int insert(MemberVO bag) {
@@ -181,5 +184,46 @@ public class MemberDAO {
 			System.out.println("에러 발생");
 		}
 		return result;
+	}
+	
+	public ArrayList<MemberVO> list() {
+		ArrayList<MemberVO> list = new ArrayList<>();
+	
+		try {
+			// 3. 2번에서 연결된 것을 가지고 sql문 생성
+			String sql = "select * from member";
+
+			PreparedStatement ps = con.prepareStatement(sql); //
+
+			System.out.println("3. sql문 생성 성공");
+
+			// 4. 3번에서 생성된 sql문을 Mysql로 전송
+			ResultSet table = ps.executeQuery();
+			// table로부터 mysql로 데이터를 받아옴
+
+			System.out.println("4. sql문 mySQL로 전송 성공");
+
+			while (table.next()) {
+				// 1. 가방을 만들기
+				// 2. table에서 한행씩 꺼내서 가방에 넣기
+				// 3. 데이터가 들어있는 가방을 list에 넣기
+				
+				MemberVO bag = new MemberVO();
+				
+				bag.setId(table.getString("id"));
+				bag.setPw(table.getString("pw"));
+				bag.setName(table.getString("name"));
+				bag.setTel(table.getString("tel"));
+				
+				list.add(bag);
+				
+			} dbcp.freeConnection(con, ps, table); // 반납
+
+		} catch (Exception e) {
+			System.out.println("에러 발생");
+		}
+		return list;
+		// return 과 void는 동시에 사용 X
+		// void 대신에 MemberVO 사용
 	}
 }

@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class BbsDAO {
 	// member table에 CRUD 작업을 하고 싶으면 MemberDAO를 사용하면 됨
@@ -14,30 +15,19 @@ public class BbsDAO {
 	
 	Connection con = null;
 	
+	DBConnectionMgr dbcp; // null
+	
 	public BbsDAO() {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			System.out.println("1. 커넥터 연결 성공");
-			// 외부 자원연결(db, network, cpu, file)을 가져올때 오류가 발생할 수 있음
-			// 이때 발생할 오류를 어떻게 대처할지를 반드시 작성해야함
-
-			// 2. 1번 설정을 커넥터로 db 연결하고 승인
-			String url = "jdbc:mysql://localhost:3306/shop?useUnicode=true&serverTimezone=Asia/Seoul";
-			String user = "root";
-			String password = "1234";
-
-			con = DriverManager.getConnection(url, user, password);
-			System.out.println("2. shop db연결 성공");
-		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 파일을 찾을 수 없음");
-		} catch (SQLException e) {
-			System.out.println("mySQL 연결 문제 발생");
+			dbcp = DBConnectionMgr.getInstance();
+			con = dbcp.getConnection();  // 임대
+		} catch (Exception e) {
+			System.out.println("에러 발생");
 		}
 	}
 
 	public void insert(String title, String content, String writer) {
 
-		// 1. 연결할 부품 (커넥터, driver) 설정
 		try {
 			// 3. 2번에서 연결된 것을 가지고 sql문 생성
 			String sql = "insert into bbs values (null, ?, ?, ?)";
@@ -59,9 +49,9 @@ public class BbsDAO {
 		}
 	}
 
-	public void delete(int no) {
+	public int delete(int no) {
+		int result = 0;
 
-		// 1. 연결할 부품 (커넥터, driver) 설정
 		try {
 			// 3. 2번에서 연결된 것을 가지고 sql문 생성
 			String sql = "delete from bbs where no = ?";
@@ -72,18 +62,18 @@ public class BbsDAO {
 			System.out.println("3. sql문 생성 성공");
 
 			// 4. 3번에서 생성된 sql문을 Mysql로 전송
-			ps.execute();
+			result = ps.executeUpdate();
 			System.out.println("4. sql문 mySQL로 전송 성공");
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("에러 발생");
 		}
+		return result;
 	}
 
-	public void update(String title, String content, int no) {
+	public int update(String title, String content, int no) {
+		int result = 0;
 
-		// 1. 연결할 부품 (커넥터, driver) 설정
 		try {
 			// 3. 2번에서 연결된 것을 가지고 sql문 생성
 			String sql = "update bbs set title = ?, content = ? where no = ? ";
@@ -95,21 +85,20 @@ public class BbsDAO {
 			System.out.println("3. sql문 생성 성공");
 
 			// 4. 3번에서 생성된 sql문을 Mysql로 전송
-			ps.execute();
+			result = ps.executeUpdate();
 			System.out.println("4. sql문 mySQL로 전송 성공");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("에러 발생");
 		}
+		return result;
 	}
 
-	public void one(int no) {
-
-		// 1. 연결할 부품 (커넥터, driver) 설정
+	public BbsVO one(int no) {
+		BbsVO bag = new BbsVO();
 		try {
 			// 3. 2번에서 연결된 것을 가지고 sql문 생성
 			String sql = "select * from bbs where no = ?";
-
 			PreparedStatement ps = con.prepareStatement(sql); //
 			ps.setInt(1, no); // 1번 ?에 no값을 넣어줘
 
@@ -132,6 +121,10 @@ public class BbsDAO {
 				System.out.println("검색을 요청한 title은 " + title + "입니다");
 				System.out.println("검색을 요청한 content는 " + content + "입니다");
 				System.out.println("검색을 요청한 writer는 " + writer + "입니다");
+				bag.setNo(no2);
+				bag.setTitle(title);
+				bag.setContent(content);
+				bag.setWriter(writer);
 			} else {
 				System.out.println("검색결과가 존재하지 않습니다");
 			}
@@ -140,11 +133,11 @@ public class BbsDAO {
 			e.printStackTrace(); // 에러정보를 추적해서 프린트
 			System.out.println("에러 발생");
 		}
+		return bag;
 	}
 	
 	public void insert(BbsVO bag) {
 
-		// 1. 연결할 부품 (커넥터, driver) 설정
 		try {
 			// 3. 2번에서 연결된 것을 가지고 sql문 생성
 			String sql = "insert into bbs values (null, ?, ?, ?)";
@@ -164,5 +157,46 @@ public class BbsDAO {
 			e.printStackTrace(); // 에러정보를 추적해서 프린트
 			System.out.println("에러 발생");
 		}
+	}
+	
+	public ArrayList<BbsVO> list() {
+		ArrayList<BbsVO> list = new ArrayList<>();
+	
+		try {
+			// 3. 2번에서 연결된 것을 가지고 sql문 생성
+			String sql = "select * from bbs";
+
+			PreparedStatement ps = con.prepareStatement(sql); //
+
+			System.out.println("3. sql문 생성 성공");
+
+			// 4. 3번에서 생성된 sql문을 Mysql로 전송
+			ResultSet table = ps.executeQuery();
+			// table로부터 mysql로 데이터를 받아옴
+
+			System.out.println("4. sql문 mySQL로 전송 성공");
+
+			while (table.next()) {
+				// 1. 가방을 만들기
+				// 2. table에서 한행씩 꺼내서 가방에 넣기
+				// 3. 데이터가 들어있는 가방을 list에 넣기
+				
+				BbsVO bag = new BbsVO();
+				
+				bag.setNo(table.getInt("no"));
+				bag.setTitle(table.getString("title"));
+				bag.setContent(table.getString("content"));
+				bag.setWriter(table.getString("writer"));
+				
+				list.add(bag);
+				
+			} dbcp.freeConnection(con, ps, table); // 반납
+
+		} catch (Exception e) {
+			System.out.println("에러 발생");
+		}
+		return list;
+		// return 과 void는 동시에 사용 X
+		// void 대신에 MemberVO 사용
 	}
 }

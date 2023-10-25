@@ -6,6 +6,23 @@
 <style>
 /*  css를 이용해서 스타일 지정 --> body를 선택해서 스타일 지정 */
 /* 태그, id, class를 이용해서 선택할 수 있음  */
+
+* {
+	
+}
+/*  * --> 모든 클래스에 적용 */
+
+.left{
+	width: 100px;
+}
+/*  .left --> left 클래스에만 적용 */
+/*  클래스 선택은 .클래스명 */
+
+textarea{
+	background: pink;
+	font-size: 15px;
+}
+
 body {
 	background-color: aqua; 
 }
@@ -19,6 +36,7 @@ button {
 
 td{
 	width: 150px;
+	height: 40px;
 	color: white;
 	background: maroon;
 	text-align: center;
@@ -26,66 +44,48 @@ td{
 </style>
 </head>
 <body>
-	<h3>게시판 정보 페이지</h3>
-	<hr color = "red">
-	<a href = index.html>첫 페이지로 돌아가기</a>
+	<h3>게시글 정보 수정 페이지</h3>
+	<hr color="red">
+
+	<form action = "update2.jsp">
 	<table border="1">
 		<tr>
 			<!-- 가로 한줄 -->
-			<td>게시글 쓰기</td>
+			<td>번호 : </td>
 			<td>
-				<a href="insert2.html">
-				<button>실행</button>
-				</a>
+				<input name = "no">
+			</td>
+			<!-- 세로 한줄 -->
+		</tr>
+			
+		<tr>
+			<!-- 가로 한줄 -->
+			<td>제목 : </td>
+			<td>
+				<input name = "title">
 			</td>
 			<!-- 세로 한줄 -->
 		</tr>
 		
 		<tr>
 			<!-- 가로 한줄 -->
-			<td>게시글 삭제</td>
+			<td>내용 : </td>
 			<td>
-				<a href="delete2.html">
-				<button>실행</button>
-				</a>
+				<input name = "content">
 			</td>
 			<!-- 세로 한줄 -->
 		</tr>
 		
 		<tr>
-			<!-- 가로 한줄 -->
-			<td>게시글 수정</td>
-			<td>
-				<a href="update2.html">
-				<button>실행</button>
-				</a>
+			<td colspan="2">
+			<!-- colspan="2" td 2칸을 합쳐서 사용하겠다는 명령어 -->
+				<button type = "submit">게시글 정보 수정</button>
+				<!-- form 안에 들어있는 버튼은 전송용 버튼 -->
+				<!-- type = "submit"은 생략 가능 -->
 			</td>
-			<!-- 세로 한줄 -->
-		</tr>
-		
-		<tr>
-			<!-- 가로 한줄 -->
-			<td>게시글 검색(단일)</td>
-			<td>
-				<a href="one2.html">
-				<button>실행</button>
-				</a>
-			</td>
-			<!-- 세로 한줄 -->
-		</tr>
-		
-		<tr>
-			<!-- 가로 한줄 -->
-			<td>게시글 검색(복수)</td>
-			<td>
-				<a href="list2.jsp">
-				<button>실행</button>
-				</a>
-			</td>
-			<!-- 세로 한줄 -->
 		</tr>
 	</table>
-
+	</form>
 
 
 

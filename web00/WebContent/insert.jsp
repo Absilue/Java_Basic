@@ -48,7 +48,7 @@
 <body bgcolor = "orange">
 	<h5>입력한 회원정보를 확인해주세요</h5>
 	<hr color = "blue">
-	
+	<a href = "index.html">첫 페이지로 돌아가기</a> <br>
 	회원가입이 완료되었습니다 <br>
 	<br>
 	가입한 아이디는 <%= id %> <br> <!-- id 변수에 있는 것을 프린트 -->
