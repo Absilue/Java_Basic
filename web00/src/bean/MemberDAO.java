@@ -124,7 +124,7 @@ public class MemberDAO {
 			System.out.println("3. sql문 생성 성공");
 
 			// 4. 3번에서 생성된 sql문을 Mysql로 전송
-			ps.execute();
+			result = ps.executeUpdate();
 			System.out.println("4. sql문 mySQL로 전송 성공");
 			dbcp.freeConnection(con,ps);
 		} catch (Exception e) {

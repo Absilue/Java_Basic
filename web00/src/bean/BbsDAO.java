@@ -183,10 +183,10 @@ public class BbsDAO {
 				
 				BbsVO bag = new BbsVO();
 				
-				bag.setNo(table.getInt("no"));
-				bag.setTitle(table.getString("title"));
-				bag.setContent(table.getString("content"));
-				bag.setWriter(table.getString("writer"));
+				bag.setNo(table.getInt(1));
+				bag.setTitle(table.getString(2));
+				bag.setContent(table.getString(3));
+				bag.setWriter(table.getString(4));
 				
 				list.add(bag);
 				

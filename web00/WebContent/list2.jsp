@@ -1,3 +1,4 @@
+<%@page import="bean.BbsDAO"%>
 <%@page import="bean.BbsVO"%>
 <%@page import="bean.MemberVO"%>
 <%@page import="java.util.ArrayList"%>
@@ -6,8 +7,8 @@
     pageEncoding="UTF-8"%>
     
     <%
-    MemberDAO dao = new MemberDAO();
-    ArrayList<MemberVO> list = dao.list();
+    BbsDAO dao = new BbsDAO();
+    ArrayList<BbsVO> list = dao.list();
     %>
     
 <!DOCTYPE html>
@@ -41,7 +42,8 @@ td{
  	for(BbsVO bag : list){  %>
 	<tr>
 		<td><%= bag.getNo() %></td>
-		<td><%= bag.getTitle() %></td>
+		<td><a href="one2.jsp?no=<%= bag.getTitle() %>"><%= bag.getTitle() %></a>
+		</td>
 		<td><%= bag.getContent() %></td>
 		<td><%= bag.getWriter() %></td>
 	</tr>
