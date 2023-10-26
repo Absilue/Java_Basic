@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+/*  css를 이용해서 스타일 지정 --> body를 선택해서 스타일 지정 */
+/* 태그, id, class를 이용해서 선택할 수 있음  */
+body {
+	background-color: yellow; 
+}
+
+button {
+	width: 100px;
+	height: 50px;
+	color: white;
+	background: olive;
+}
+
+td{
+	width: 150px;
+	background: silver;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<h3>제품 등록 취소 페이지</h3>
+
+	<hr color="green">
+	
+	<form action = "delete3.jsp">
+	<table border="1">
+		<tr>
+			<!-- 가로 한줄 -->
+			<td> 제품코드 : </td>
+			<td>
+				<input name = "id">
+			</td>
+			<!-- 세로 한줄 -->
+		</tr>
+	
+		<tr>
+			<td colspan="2">
+			<!-- colspan="2" td 2칸을 합쳐서 사용하겠다는 명령어 -->
+				<button type = "submit">제품 등록 취소</button>
+				<!-- form 안에 들어있는 버튼은 전송용 버튼 -->
+				<!-- type = "submit"은 생략 가능 -->
+			</td>
+		</tr>
+	</table>
+	</form>
+
+
+
+</body>
+</html>
