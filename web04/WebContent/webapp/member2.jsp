@@ -1,42 +1,36 @@
-<%@page import="com.sun.org.apache.xalan.internal.xsltc.compiler.util.ResultTreeType"%>
 <%@page import="bean.MemberDAO"%>
 <%@page import="bean.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <!-- 1. 입력한 값을 받아 램에 저장-->
-    <!-- 2. db 처리 -->
-    <!-- 3. 결과를 html로 표현 -->
-    
-    <!--  bag을 만들어서 클라이언트로 부터 넘어온 데이터를 bag에 넣음 -->
+    <!-- 1. 입력한 값을 받아서 램에 넣어두세요. -->
+    <!-- 2. db처리하세요.! -->
+    <!-- 3. 결과를 알려주세요.(html) -->
+    <!-- bag을 만들어서 클라이언트로 부터 넘어온 데이터를 bag에 넣어라. -->
     <jsp:useBean id="bag" class="bean.MemberDTO"></jsp:useBean>
     <jsp:setProperty property="*" name="bag"/>
-    
     <%
-    	MemberDAO dao = new MemberDAO();
-    	int result = dao.insert(bag);
-    	// int ( 1 / 0) 중 하나의 값이 넘어옴
-    	// 성공시 1, 실패시 0
-    	String resultText = "";
-    	if(result == 1){
-    		resultText = "회원가입 성공";
-    	}else{
-    		resultText = "회원가입 실패";
-    	}
+    MemberDAO dao = new MemberDAO();
+    int result = dao.insert(bag); //int(1/0)
+    String resultText = "";
+    if(result == 1){
+    	resultText = "회원가입에 성공했습니다.";
+    }else{
+    	resultText = "회원가입에 실패했습니다.";
+    }
     %>
-    
     <%
-    	// String id = request.getParameter("id");
-    	// String pw = request.getParameter("pw");
-    	// String name = request.getParameter("name");
-    	// String tel = request.getParameter("tel");
-    	
-    	// MemberDTO bag = new MemberDTO();
-    	// bag.setId(id);
-    	// bag.setPw(pw);
-    	// bag.setName(name);
-    	// bag.setTel(tel);
-    	
-    	// dao.insert(bag);
+/*     String id = request.getParameter("id");
+    String pw = request.getParameter("pw");
+    String name = request.getParameter("name");
+    String tel = request.getParameter("tel");
+    
+    MemberDTO bag = new MemberDTO();
+    bag.setId(id);
+    bag.setPw(pw);
+    bag.setName(name);
+    bag.setTel(tel); */
+    
+    //dao.insert(bag);
     %>
 <!DOCTYPE html>
 <html>
@@ -62,9 +56,10 @@
 			<jsp:include page="top2.jsp"></jsp:include>
 		</div>
 		<div id="center">
-	<%= resultText %>
-	<a href="member.jsp">회원가입 / 로그인 페이지로 되돌아가기</a>
+		<br><br>
+			<%= resultText %> <br>
+			<a href="member.jsp">회원가입/로그인페이지로 이동</a>
 		</div>
-		</div>
+	</div>
 </body>
 </html>

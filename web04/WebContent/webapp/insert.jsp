@@ -1,6 +1,3 @@
-<%@page import="bean.BbsDTO2"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="bean.BbsDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,47 +21,38 @@
 		<jsp:include page="top2.jsp"></jsp:include>
 	</div>
 	<div id="center">
-	<br>
+	<br><br>
 		<% if(session.getAttribute("id") != null ) { %>
-			<span class="alert alert-success"> 
-				<%=session.getAttribute("id")%>님 환영합니다.
-			</span>
-			<a href="insert.jsp">
-				<button class="btn btn-danger">글쓰기</button>
-			</a>
+			<%= session.getAttribute("id") %>님 환영합니다.
 			<a href="logout.jsp">
 				<button class="btn btn-outline-danger">로그아웃</button>
 			</a>
 		<% } %>
-		<%
-			BbsDAO dao = new BbsDAO();
-			ArrayList<BbsDTO2> list = dao.list();
-		%>
-		전체게시물: <%= list.size() %>개 
-		<br><br>
-		<table border="1" class="table table-hover">
-				<thead>
-					<tr class="table-warning">
-						<td>게시글</td>
-						<td>내용</td>
-						<td>작성자</td>
+		<br>
+					
+		<form action="insert2.jsp">
+				<table border="1"  class="table table-hover">
+					<tr  class="table-warning">
+						<td width="200">제목</td>
+						<td width="300"><input name="title"></td>
 					</tr>
-				</thead>
-				<tbody>
-				<% for(BbsDTO2 bag: list) {%>
-					<tr class="table-info">
-						<td><%= bag.getTitle() %></td>
-						<td>
-							<a href="bbs2.jsp?id=<%= bag.getId() %>">
-								<%= bag.getContent() %>
-							</a>
+					<tr  class="table-warning">
+						<td width="200">내용</td>
+						<td width="300"><input name="content"></td>
+					</tr>
+					<tr  class="table-warning">
+						<td width="200">작성자</td>
+						<td width="300">
+							<input name="writer" value="${id}">
 						</td>
-						<td><%= bag.getWriter() %></td>
 					</tr>
-				<%} %>
-				</tbody>
-		</table>
-		
+					<tr  class="table-warning">
+						<td width="200" colspan="2">
+							<button type="submit" class="btn btn-info">글쓰기</button>
+						</td>
+					</tr>
+				</table>
+		</form>
 	</div>
 </div>
 </body>

@@ -1,8 +1,28 @@
-<%@page import="bean.BbsDTO2"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="bean.BbsDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <!-- 
+    
+		insert.jsp —> insert2.jsp --dto—> dao --sql—> db
+		browser	<— html      	   <—1                   <—1
+		
+		1. basket.jsp를 복사해서 insert2.jsp를 만드세요.
+		2. bag(dto)를 만들어서 받은 앞페이지에서 받은 데이터를 dto에 넣으세요.
+		    액션태그 사용(jsp:useBean,jsp:setProperty)
+		3. dao.insert(bag)을 이용해서 db처리후 결과가 1이면 bbs.jsp로 화면자동 넘김
+		    response.sendRedirect(“bbs.jsp”);
+		4. db처리후 결과가 1이 아니면 ~~~ 저와함께 구현!
+     -->
+     <jsp:useBean id="bag" class="bean.BbsDTO2"></jsp:useBean>
+     <jsp:setProperty property="*" name="bag"/>
+     
+     <%
+     	BbsDAO dao = new BbsDAO();
+     	int result = dao.insert(bag);//1
+     	if(result == 1){
+     		response.sendRedirect("bbs.jsp");
+     	}
+     %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,47 +44,13 @@
 		<jsp:include page="top2.jsp"></jsp:include>
 	</div>
 	<div id="center">
-	<br>
+	<br><br>
 		<% if(session.getAttribute("id") != null ) { %>
-			<span class="alert alert-success"> 
-				<%=session.getAttribute("id")%>님 환영합니다.
-			</span>
-			<a href="insert.jsp">
-				<button class="btn btn-danger">글쓰기</button>
-			</a>
+			<%= session.getAttribute("id") %>님 환영합니다.
 			<a href="logout.jsp">
 				<button class="btn btn-outline-danger">로그아웃</button>
 			</a>
 		<% } %>
-		<%
-			BbsDAO dao = new BbsDAO();
-			ArrayList<BbsDTO2> list = dao.list();
-		%>
-		전체게시물: <%= list.size() %>개 
-		<br><br>
-		<table border="1" class="table table-hover">
-				<thead>
-					<tr class="table-warning">
-						<td>게시글</td>
-						<td>내용</td>
-						<td>작성자</td>
-					</tr>
-				</thead>
-				<tbody>
-				<% for(BbsDTO2 bag: list) {%>
-					<tr class="table-info">
-						<td><%= bag.getTitle() %></td>
-						<td>
-							<a href="bbs2.jsp?id=<%= bag.getId() %>">
-								<%= bag.getContent() %>
-							</a>
-						</td>
-						<td><%= bag.getWriter() %></td>
-					</tr>
-				<%} %>
-				</tbody>
-		</table>
-		
 	</div>
 </div>
 </body>
