@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+	<item>
+		<rank>
+			<name>김연아</name>
+			<tel>010</tel>
+		</rank>
+
+		<rank>
+			<name>박태환</name>
+			<tel>011</tel>
+		</rank>
+
+		<rank>
+			<name>손흥민</name>
+			<tel>019</tel>
+		</rank>
+	</item>
+</result>
