@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+	<display-name>web07</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	<!-- 주소지정 + 서블릿 연결 지정 -->
+	<!-- 서블릿 연결 지정을 하기위해서는 서블릿 등록이 우선되어야 함 -->
+	<servlet>
+		<servlet-name>hi</servlet-name>
+		<servlet-class>bean.Hi2</servlet-class>
+
+		<init-param>
+			<param-name>tel</param-name>
+			<param-value>01011112222</param-value>
+		</init-param>
+
+		<init-param>
+			<param-name>email</param-name>
+			<param-value>aclick@naver.com</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet>
+		<servlet-name>hi3</servlet-name>
+		<servlet-class>bean.Hi3</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>monday</servlet-name>
+		<servlet-class>bean.Monday</servlet-class>
+		
+		<init-param>
+			<param-name>temp</param-name>
+			<param-value>good</param-value>
+		</init-param>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>member</servlet-name>
+		<servlet-class>bean.MemberServlet</servlet-class>
+	</servlet>
+	
+
+	<servlet-mapping>
+		<servlet-name>hi</servlet-name>
+		<url-pattern>/hi222</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet-mapping>
+		<servlet-name>hi3</servlet-name>
+		<url-pattern>/hi3000</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>monday</servlet-name>
+		<url-pattern>/monday2.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>member</servlet-name>
+		<url-pattern>/insert.do</url-pattern>
+	</servlet-mapping>
+
+</web-app>
