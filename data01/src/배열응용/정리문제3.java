@@ -9,12 +9,13 @@ public class 정리문제3 {
 		int [] jumsu = new int [10];
 		Random r = new Random();
 		int max = jumsu[0];
-		int min = jumsu[0];
+		int min = Integer.MAX_VALUE;
+		// min값은 배열에 포함될 수 있는 가장 큰 값을 초기값으로 지정해주어야 정상작동
 		int max_index = 0;
 		int min_index = 0;
 		
 		for (int i = 0; i < jumsu.length; i++) {
-			jumsu[i] = r.nextInt(100)+1;
+			jumsu[i] = r.nextInt(100)+1; // 1~100
 			
 			if(max < jumsu[i]) {
 				max = jumsu[i];
