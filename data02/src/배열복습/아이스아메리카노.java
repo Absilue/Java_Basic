@@ -9,14 +9,14 @@ public class 아이스아메리카노 {
 		Scanner sc = new Scanner(System.in);
 		int num1 = sc.nextInt();
 		
-		Solution2 s = new Solution2();
+		Solution3 s = new Solution3();
 		int[] result = s.solution(num1);
 		 System.out.println(Arrays.toString(result));
 		sc.close();
 	}
 }
 
-class Solution2 {
+class Solution3 {
     public int[] solution(int money) {
     	int price = 5500;
     	int coffee = money / price;
